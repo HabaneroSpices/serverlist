@@ -1,0 +1,23 @@
+<?php
+
+
+// DB Variables
+$host = 'localhost';
+$dbname = 'Database Name';
+$username = 'User Name';
+$password = 'Password';
+
+// DB Connect
+$dsn = "mysql:host=$host;dbname=$dbname";
+try {
+  $conn = new PDO($dsn, $username, $password, null);
+} catch (\PDOException $ex) {
+  die("Guess I'll die :: " . $ex->getMessage() . "; Error Code :: " . $ex->getCode());
+}
+
+// DB Functions
+function fetchServers() {
+  $query = $conn->query('SELECT * FROM server');
+  $results = $query->fetchAll();
+  return $results();
+}
