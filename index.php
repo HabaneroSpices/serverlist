@@ -1,5 +1,7 @@
 <?php 
 require $_SERVER['DOCUMENT_ROOT'] . "/inc/config.php";
+$alive = 0;
+$dead = 0;
 
 // DB Fetch
 $query = $conn->query('SELECT * FROM server');
@@ -12,27 +14,32 @@ $results = $query->fetchAll();
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link href="./css/style.css" rel="stylesheet">
 <style>
-<?php foreach($results as $row) { 
-if ($row['dead']) { $alive++; }
-if (!$row['dead']) { $dead++; }
+<?php foreach($results as $row) {
+if (!$row['dead']) { $alive++; }
+if ($row['dead']) { $dead++; }
 $totalcost = $totalcost + $row['cost'];
 }
 $all = $alive + $dead; ?>
 @media screen and (min-width: 600px) {
-	ul {
-		column-count:  <?php echo $all-1; ?>;
+	.alive, ul {
+		column-count:  <?php echo "1"; ?>;
+	}
+	.dead, ul {
+		column-count:  <?php echo "1"; ?>;
 	}
 }
 @media screen and (min-width: 900px) {
-	ul {
-		column-count: <?php echo $all-2; ?>
+	.alive {
+		column-count: <?php if ($alive >= 6) {echo "3";} else {echo "2";} ?>;
+	}
+	.dead {
+		column-count: <?php if ($dead >= 6) {echo "3";} else {echo "2";} ?>;
 	}
 }
 
 </style>
 </head>
 <body>
-<article id="servers">
 	<h1>Servers</h1>
 	<p>
 	Total: <?php echo "${all} ({$alive} running, {$dead} dead)<br>
@@ -40,7 +47,7 @@ $all = $alive + $dead; ?>
 	Updated: August 2020<br>
 	</p>
 	<h3>Currently Active</h3>
-	<ul>
+	<ul class="alive">
 	<?php
 	//$query = $conn->query('SELECT * FROM server');
   	//$results = $query->fetchAll();
@@ -64,7 +71,7 @@ $all = $alive + $dead; ?>
 	}} ?>
 	</ul>
 	<h3>Inactive or Dead</h3>
-	<ul>
+	<ul class="dead">
 	<?php
 	foreach($results as $row) {
 	if ($row['dead']){
@@ -72,6 +79,5 @@ $all = $alive + $dead; ?>
         echo "<li>{$row['name']}{$type}<br><i>{$row['description']}</i></li>";
         }} ?>
 	</ul>
-</article>
 </body>
 </html>
