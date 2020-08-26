@@ -5,12 +5,13 @@ $dead = 0;
 
 // DB Fetch
 $query = $conn->query('SELECT * FROM server');
-$results = $query->fetchAll();
+$results = $query->fetchAll(); 
 ?>
 <html>
 <head>
 <title>Server Listing</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link href="./css/style.css" rel="stylesheet">
 <style>
@@ -39,7 +40,7 @@ $all = $alive + $dead; ?>
 
 </style>
 </head>
-<body>
+<body onload="startScript()">
 	<h1>Servers</h1>
 	<p>
 	Total: <?php echo "${all} ({$alive} running, {$dead} dead)<br>
@@ -67,7 +68,7 @@ $all = $alive + $dead; ?>
 		$coststr = "({$row['cost']}€/mo)";
                 break;
         }
-	echo "<li><a href='{$row['href']}'>{$row['name']}{$type}<br><i>{$row['description']}<br>{$coststr}</i></a></li>";
+	echo "<li id='{$row['href']}'><a href='//{$row['href']}'>{$row['name']}{$type}<br><i>{$row['description']}<br>{$coststr}</i></a></li>";
 	}} ?>
 	</ul>
 	<h3>Inactive or Dead</h3>
@@ -80,4 +81,9 @@ $all = $alive + $dead; ?>
         }} ?>
 	</ul>
 </body>
+<script>
+function startScript() {
+	$('li a[href*="' + window.location.hostname + '"]').closest('a').addClass('current');
+}
+</script>
 </html>

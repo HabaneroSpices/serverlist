@@ -35,4 +35,6 @@ i p {
         font-weight:lighter;
         font-size: 0.75em;
 }
-
+.current::before {
+        content: "> ";
+}
