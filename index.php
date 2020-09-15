@@ -31,10 +31,10 @@ $all = $alive + $dead; ?>
 }
 @media screen and (min-width: 900px) {
 	.alive {
-		column-count: <?php if ($alive >= 6) {echo "3";} else {echo "2";} ?>;
+		column-count: <?php if ($alive >= 3) {echo "3";} else {echo "2";} ?>;
 	}
 	.dead {
-		column-count: <?php if ($dead >= 6) {echo "3";} else {echo "2";} ?>;
+		column-count: <?php if ($dead >= 3) {echo "3";} else {echo "2";} ?>;
 	}
 }
 
