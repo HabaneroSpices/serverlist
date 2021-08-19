@@ -45,7 +45,7 @@ $all = $alive + $dead; ?>
 	<p>
 	Total: <?php echo "${all} ({$alive} running, {$dead} dead)<br>
 	Cost: {$totalcost}€/mo<br>"?>
-	Updated: September 2020<br>
+	Updated: August 2021<br>
 	</p>
 	<h3>Currently Active</h3>
 	<ul class="alive">
