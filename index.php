@@ -2,6 +2,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . "/inc/config.php";
 $alive = 0;
 $dead = 0;
+$dates = array();
 
 // DB Fetch
 $query = $conn->query('SELECT * FROM server');
@@ -19,7 +20,9 @@ $results = $query->fetchAll();
 if (!$row['dead']) { $alive++; }
 if ($row['dead']) { $dead++; }
 $totalcost = $totalcost + $row['cost'];
+$dates[] = $row['datetime']; 
 }
+$latestdate = date("d M Y", max(array_map('strtotime', $dates)));
 $all = $alive + $dead; ?>
 @media screen and (min-width: 600px) {
 	.alive, ul {
@@ -45,7 +48,7 @@ $all = $alive + $dead; ?>
 	<p>
 	Total: <?php echo "${all} ({$alive} running, {$dead} dead)<br>
 	Cost: {$totalcost}€/mo<br>"?>
-	Updated: August 2021<br>
+	Updated: <?php echo $latestdate; ?> <br>
 	</p>
 	<h3>Currently Active</h3>
 	<ul class="alive">
