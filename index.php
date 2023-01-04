@@ -59,16 +59,28 @@ $all = $alive + $dead; ?>
 	if (!$row['dead']){
         switch ($row['type']) {
           case "vps":
-                $type = " ☁";
-		$coststr = "({$row['cost']}€/mo)";
-                break;
+		$type = " ☁";
+		if ($row['cost']) {  
+		  $coststr = "({$row['cost']}€/mo)";
+		} else {
+		  $coststr = "(⚡/mo)";
+		}
+		break;
           case "home":
                 $type = " 🏠";
-		$coststr = "(⚡/mo)";
-                break;
+		if ($row['cost']) {  
+		  $coststr = "({$row['cost']}€/mo)";
+		} else {
+		  $coststr = "(⚡/mo)";
+		}
+		break;
           default:
 		$type = "";
-		$coststr = "({$row['cost']}€/mo)";
+		if ($row['cost']) {  
+		  $coststr = "({$row['cost']}€/mo)";
+		} else {
+		  $coststr = "(⚡/mo)";
+		}
                 break;
         }
 	echo "<li id='{$row['href']}'><a href='//{$row['href']}'>{$row['name']}{$type}<br><i>{$row['description']}<br>{$coststr}</i></a></li>";
