@@ -16,8 +16,8 @@ try {
 }
 
 // DB Functions
-function fetchServers() {
-  $query = $conn->query('SELECT * FROM server');
-  $results = $query->fetchAll();
-  return $results();
-}
+//function fetchServers() {
+//  $query = $conn->query('SELECT * FROM server');
+//  $results = $query->fetchAll();
+//  return $results();
+//}
